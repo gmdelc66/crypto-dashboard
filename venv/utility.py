@@ -3,7 +3,6 @@ from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 
-
 class ApiUtil:
     # get coin prices based on symbols passed in
     @staticmethod
@@ -24,7 +23,7 @@ class ApiUtil:
         # API_KEY is from the dev account on coinmarketcap, replace the x's
         headers = {
             'Accepts': 'application/json',
-            'X-CMC_PRO_API_KEY': 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+            'X-CMC_PRO_API_KEY': 'bee5d0df-98c7-4954-8af2-8fab7a3d8935',
         }
 
         session = Session()
@@ -55,20 +54,17 @@ class CoinUtil:
     # it is important to note that symbols must be capitalized and match exactly what coinmarketcap shows
     @staticmethod
     def create_coin_dict():
+        # Monedas que maneja BITSO
         coin_list = [
-            {"symbol": "IQ", "amount": 250000, "cost": 3000},
-            {"symbol": "ETH", "amount": 2, "cost": 4500},
-            {"symbol": "VET", "amount": 5000, "cost": 500},
-            {"symbol": "LINK", "amount": 40, "cost": 1000},
-            {"symbol": "SC", "amount": 30000, "cost": 500},
-            {"symbol": "ONE", "amount": 4000, "cost": 1000},
-            {"symbol": "MOON", "amount": 800, "cost": 0},
-            {"symbol": "BTC", "amount": .2, "cost": 8000},
-            {"symbol": "VTHO", "amount": 400000, "cost": 3000},
-            {"symbol": "ADA", "amount": 2300, "cost": 4000},
-            {"symbol": "COMP", "amount": 1.5, "cost": 500},
-            {"symbol": "ELON", "amount": 500000000, "cost": 100},
-            {"symbol": "SMI", "amount": 40000000, "cost": 250}
+            {"symbol": "BTC", "amount": 1, "cost": 1},
+            {"symbol": "ETH", "amount": 1, "cost": 1},
+            {"symbol": "XRP", "amount": 1, "cost": 1},
+            {"symbol": "LTC", "amount": 1, "cost": 1},
+            {"symbol": "BCH", "amount": 1, "cost": 1},
+            {"symbol": "TUSD", "amount": 1, "cost": 1},
+            {"symbol": "MANA", "amount": 1, "cost": 1},
+            {"symbol": "BAT", "amount": 1, "cost": 1},
+            {"symbol": "DAI", "amount": 1, "cost": 1}
         ]
         return coin_list
 
@@ -81,7 +77,7 @@ class CoinUtil:
             for j in coin:
                 if i["symbol"] == j["symbol"]:
                     value = round(i["price"] * j["amount"], 2)
-                    if j["cost"] is not 0:
+                    if j["cost"] != 0:
                         total_change = (value / j["cost"] - 1) * 100
                     else:
                         total_change = 0
@@ -93,5 +89,4 @@ class CoinUtil:
         for k in new_list:
             diversity = round(k["value"] / total_value * 100, 2)
             k["diversity"] = diversity
-
         return new_list
